@@ -1,0 +1,530 @@
+cmake_minimum_required(VERSION 3.15)
+project(refinertetra)
+
+set(CMAKE_CXX_STANDARD 14)
+
+include_directories(classes)
+include_directories(classes/Eigen)
+include_directories(classes/Eigen/src)
+include_directories(classes/Eigen/src/Cholesky)
+include_directories(classes/Eigen/src/CholmodSupport)
+include_directories(classes/Eigen/src/Core)
+include_directories(classes/Eigen/src/Core/arch)
+include_directories(classes/Eigen/src/Core/arch/AltiVec)
+include_directories(classes/Eigen/src/Core/arch/AVX)
+include_directories(classes/Eigen/src/Core/arch/AVX512)
+include_directories(classes/Eigen/src/Core/arch/CUDA)
+include_directories(classes/Eigen/src/Core/arch/Default)
+include_directories(classes/Eigen/src/Core/arch/NEON)
+include_directories(classes/Eigen/src/Core/arch/SSE)
+include_directories(classes/Eigen/src/Core/arch/ZVector)
+include_directories(classes/Eigen/src/Core/functors)
+include_directories(classes/Eigen/src/Core/products)
+include_directories(classes/Eigen/src/Core/util)
+include_directories(classes/Eigen/src/Eigenvalues)
+include_directories(classes/Eigen/src/Geometry)
+include_directories(classes/Eigen/src/Geometry/arch)
+include_directories(classes/Eigen/src/Householder)
+include_directories(classes/Eigen/src/IterativeLinearSolvers)
+include_directories(classes/Eigen/src/Jacobi)
+include_directories(classes/Eigen/src/LU)
+include_directories(classes/Eigen/src/LU/arch)
+include_directories(classes/Eigen/src/MetisSupport)
+include_directories(classes/Eigen/src/misc)
+include_directories(classes/Eigen/src/OrderingMethods)
+include_directories(classes/Eigen/src/PardisoSupport)
+include_directories(classes/Eigen/src/PaStiXSupport)
+include_directories(classes/Eigen/src/plugins)
+include_directories(classes/Eigen/src/QR)
+include_directories(classes/Eigen/src/SparseCholesky)
+include_directories(classes/Eigen/src/SparseCore)
+include_directories(classes/Eigen/src/SparseLU)
+include_directories(classes/Eigen/src/SparseQR)
+include_directories(classes/Eigen/src/SPQRSupport)
+include_directories(classes/Eigen/src/StlSupport)
+include_directories(classes/Eigen/src/SuperLUSupport)
+include_directories(classes/Eigen/src/SVD)
+include_directories(classes/Eigen/src/UmfPackSupport)
+include_directories(classes/Eigen/unsupported)
+include_directories(classes/Eigen/unsupported/CXX11)
+include_directories(classes/Eigen/unsupported/CXX11/src)
+include_directories(classes/Eigen/unsupported/CXX11/src/Tensor)
+include_directories(classes/Eigen/unsupported/CXX11/src/TensorSymmetry)
+include_directories(classes/Eigen/unsupported/CXX11/src/TensorSymmetry/util)
+include_directories(classes/Eigen/unsupported/CXX11/src/ThreadPool)
+include_directories(classes/Eigen/unsupported/CXX11/src/util)
+include_directories(classes/Eigen/unsupported/src)
+include_directories(classes/Eigen/unsupported/src/AutoDiff)
+include_directories(classes/Eigen/unsupported/src/BVH)
+include_directories(classes/Eigen/unsupported/src/Eigenvalues)
+include_directories(classes/Eigen/unsupported/src/EulerAngles)
+include_directories(classes/Eigen/unsupported/src/FFT)
+include_directories(classes/Eigen/unsupported/src/IterativeSolvers)
+include_directories(classes/Eigen/unsupported/src/KroneckerProduct)
+include_directories(classes/Eigen/unsupported/src/LevenbergMarquardt)
+include_directories(classes/Eigen/unsupported/src/MatrixFunctions)
+include_directories(classes/Eigen/unsupported/src/MoreVectorization)
+include_directories(classes/Eigen/unsupported/src/NonLinearOptimization)
+include_directories(classes/Eigen/unsupported/src/NumericalDiff)
+include_directories(classes/Eigen/unsupported/src/Polynomials)
+include_directories(classes/Eigen/unsupported/src/Skyline)
+include_directories(classes/Eigen/unsupported/src/SparseExtra)
+include_directories(classes/Eigen/unsupported/src/SpecialFunctions)
+include_directories(classes/Eigen/unsupported/src/SpecialFunctions/arch)
+include_directories(classes/Eigen/unsupported/src/SpecialFunctions/arch/CUDA)
+include_directories(classes/Eigen/unsupported/src/Splines)
+include_directories(Project)
+
+add_executable(refinertetra
+        classes/Eigen/src/Cholesky/LDLT.h
+        classes/Eigen/src/Cholesky/LLT.h
+        classes/Eigen/src/Cholesky/LLT_LAPACKE.h
+        classes/Eigen/src/CholmodSupport/CholmodSupport.h
+        classes/Eigen/src/Core/arch/AltiVec/Complex.h
+        classes/Eigen/src/Core/arch/AltiVec/MathFunctions.h
+        classes/Eigen/src/Core/arch/AltiVec/PacketMath.h
+        classes/Eigen/src/Core/arch/AVX/Complex.h
+        classes/Eigen/src/Core/arch/AVX/MathFunctions.h
+        classes/Eigen/src/Core/arch/AVX/PacketMath.h
+        classes/Eigen/src/Core/arch/AVX/TypeCasting.h
+        classes/Eigen/src/Core/arch/AVX512/MathFunctions.h
+        classes/Eigen/src/Core/arch/AVX512/PacketMath.h
+        classes/Eigen/src/Core/arch/CUDA/Complex.h
+        classes/Eigen/src/Core/arch/CUDA/Half.h
+        classes/Eigen/src/Core/arch/CUDA/MathFunctions.h
+        classes/Eigen/src/Core/arch/CUDA/PacketMath.h
+        classes/Eigen/src/Core/arch/CUDA/PacketMathHalf.h
+        classes/Eigen/src/Core/arch/CUDA/TypeCasting.h
+        classes/Eigen/src/Core/arch/Default/ConjHelper.h
+        classes/Eigen/src/Core/arch/Default/Settings.h
+        classes/Eigen/src/Core/arch/NEON/Complex.h
+        classes/Eigen/src/Core/arch/NEON/MathFunctions.h
+        classes/Eigen/src/Core/arch/NEON/PacketMath.h
+        classes/Eigen/src/Core/arch/SSE/Complex.h
+        classes/Eigen/src/Core/arch/SSE/MathFunctions.h
+        classes/Eigen/src/Core/arch/SSE/PacketMath.h
+        classes/Eigen/src/Core/arch/SSE/TypeCasting.h
+        classes/Eigen/src/Core/arch/ZVector/Complex.h
+        classes/Eigen/src/Core/arch/ZVector/MathFunctions.h
+        classes/Eigen/src/Core/arch/ZVector/PacketMath.h
+        classes/Eigen/src/Core/functors/AssignmentFunctors.h
+        classes/Eigen/src/Core/functors/BinaryFunctors.h
+        classes/Eigen/src/Core/functors/NullaryFunctors.h
+        classes/Eigen/src/Core/functors/StlFunctors.h
+        classes/Eigen/src/Core/functors/TernaryFunctors.h
+        classes/Eigen/src/Core/functors/UnaryFunctors.h
+        classes/Eigen/src/Core/products/GeneralBlockPanelKernel.h
+        classes/Eigen/src/Core/products/GeneralMatrixMatrix.h
+        classes/Eigen/src/Core/products/GeneralMatrixMatrix_BLAS.h
+        classes/Eigen/src/Core/products/GeneralMatrixMatrixTriangular.h
+        classes/Eigen/src/Core/products/GeneralMatrixMatrixTriangular_BLAS.h
+        classes/Eigen/src/Core/products/GeneralMatrixVector.h
+        classes/Eigen/src/Core/products/GeneralMatrixVector_BLAS.h
+        classes/Eigen/src/Core/products/Parallelizer.h
+        classes/Eigen/src/Core/products/SelfadjointMatrixMatrix.h
+        classes/Eigen/src/Core/products/SelfadjointMatrixMatrix_BLAS.h
+        classes/Eigen/src/Core/products/SelfadjointMatrixVector.h
+        classes/Eigen/src/Core/products/SelfadjointMatrixVector_BLAS.h
+        classes/Eigen/src/Core/products/SelfadjointProduct.h
+        classes/Eigen/src/Core/products/SelfadjointRank2Update.h
+        classes/Eigen/src/Core/products/TriangularMatrixMatrix.h
+        classes/Eigen/src/Core/products/TriangularMatrixMatrix_BLAS.h
+        classes/Eigen/src/Core/products/TriangularMatrixVector.h
+        classes/Eigen/src/Core/products/TriangularMatrixVector_BLAS.h
+        classes/Eigen/src/Core/products/TriangularSolverMatrix.h
+        classes/Eigen/src/Core/products/TriangularSolverMatrix_BLAS.h
+        classes/Eigen/src/Core/products/TriangularSolverVector.h
+        classes/Eigen/src/Core/util/BlasUtil.h
+        classes/Eigen/src/Core/util/Constants.h
+        classes/Eigen/src/Core/util/DisableStupidWarnings.h
+        classes/Eigen/src/Core/util/ForwardDeclarations.h
+        classes/Eigen/src/Core/util/Macros.h
+        classes/Eigen/src/Core/util/Memory.h
+        classes/Eigen/src/Core/util/Meta.h
+        classes/Eigen/src/Core/util/MKL_support.h
+        classes/Eigen/src/Core/util/NonMPL2.h
+        classes/Eigen/src/Core/util/ReenableStupidWarnings.h
+        classes/Eigen/src/Core/util/StaticAssert.h
+        classes/Eigen/src/Core/util/XprHelper.h
+        classes/Eigen/src/Core/Array.h
+        classes/Eigen/src/Core/ArrayBase.h
+        classes/Eigen/src/Core/ArrayWrapper.h
+        classes/Eigen/src/Core/Assign.h
+        classes/Eigen/src/Core/Assign_MKL.h
+        classes/Eigen/src/Core/AssignEvaluator.h
+        classes/Eigen/src/Core/BandMatrix.h
+        classes/Eigen/src/Core/Block.h
+        classes/Eigen/src/Core/BooleanRedux.h
+        classes/Eigen/src/Core/CommaInitializer.h
+        classes/Eigen/src/Core/ConditionEstimator.h
+        classes/Eigen/src/Core/CoreEvaluators.h
+        classes/Eigen/src/Core/CoreIterators.h
+        classes/Eigen/src/Core/CwiseBinaryOp.h
+        classes/Eigen/src/Core/CwiseNullaryOp.h
+        classes/Eigen/src/Core/CwiseTernaryOp.h
+        classes/Eigen/src/Core/CwiseUnaryOp.h
+        classes/Eigen/src/Core/CwiseUnaryView.h
+        classes/Eigen/src/Core/DenseBase.h
+        classes/Eigen/src/Core/DenseCoeffsBase.h
+        classes/Eigen/src/Core/DenseStorage.h
+        classes/Eigen/src/Core/Diagonal.h
+        classes/Eigen/src/Core/DiagonalMatrix.h
+        classes/Eigen/src/Core/DiagonalProduct.h
+        classes/Eigen/src/Core/Dot.h
+        classes/Eigen/src/Core/EigenBase.h
+        classes/Eigen/src/Core/ForceAlignedAccess.h
+        classes/Eigen/src/Core/Fuzzy.h
+        classes/Eigen/src/Core/GeneralProduct.h
+        classes/Eigen/src/Core/GenericPacketMath.h
+        classes/Eigen/src/Core/GlobalFunctions.h
+        classes/Eigen/src/Core/Inverse.h
+        classes/Eigen/src/Core/IO.h
+        classes/Eigen/src/Core/Map.h
+        classes/Eigen/src/Core/MapBase.h
+        classes/Eigen/src/Core/MathFunctions.h
+        classes/Eigen/src/Core/MathFunctionsImpl.h
+        classes/Eigen/src/Core/Matrix.h
+        classes/Eigen/src/Core/MatrixBase.h
+        classes/Eigen/src/Core/NestByValue.h
+        classes/Eigen/src/Core/NoAlias.h
+        classes/Eigen/src/Core/NumTraits.h
+        classes/Eigen/src/Core/PermutationMatrix.h
+        classes/Eigen/src/Core/PlainObjectBase.h
+        classes/Eigen/src/Core/Product.h
+        classes/Eigen/src/Core/ProductEvaluators.h
+        classes/Eigen/src/Core/Random.h
+        classes/Eigen/src/Core/Redux.h
+        classes/Eigen/src/Core/Ref.h
+        classes/Eigen/src/Core/Replicate.h
+        classes/Eigen/src/Core/ReturnByValue.h
+        classes/Eigen/src/Core/Reverse.h
+        classes/Eigen/src/Core/Select.h
+        classes/Eigen/src/Core/SelfAdjointView.h
+        classes/Eigen/src/Core/SelfCwiseBinaryOp.h
+        classes/Eigen/src/Core/Solve.h
+        classes/Eigen/src/Core/SolverBase.h
+        classes/Eigen/src/Core/SolveTriangular.h
+        classes/Eigen/src/Core/StableNorm.h
+        classes/Eigen/src/Core/Stride.h
+        classes/Eigen/src/Core/Swap.h
+        classes/Eigen/src/Core/Transpose.h
+        classes/Eigen/src/Core/Transpositions.h
+        classes/Eigen/src/Core/TriangularMatrix.h
+        classes/Eigen/src/Core/VectorBlock.h
+        classes/Eigen/src/Core/VectorwiseOp.h
+        classes/Eigen/src/Core/Visitor.h
+        classes/Eigen/src/Eigenvalues/ComplexEigenSolver.h
+        classes/Eigen/src/Eigenvalues/ComplexSchur.h
+        classes/Eigen/src/Eigenvalues/ComplexSchur_LAPACKE.h
+        classes/Eigen/src/Eigenvalues/EigenSolver.h
+        classes/Eigen/src/Eigenvalues/GeneralizedEigenSolver.h
+        classes/Eigen/src/Eigenvalues/GeneralizedSelfAdjointEigenSolver.h
+        classes/Eigen/src/Eigenvalues/HessenbergDecomposition.h
+        classes/Eigen/src/Eigenvalues/MatrixBaseEigenvalues.h
+        classes/Eigen/src/Eigenvalues/RealQZ.h
+        classes/Eigen/src/Eigenvalues/RealSchur.h
+        classes/Eigen/src/Eigenvalues/RealSchur_LAPACKE.h
+        classes/Eigen/src/Eigenvalues/SelfAdjointEigenSolver.h
+        classes/Eigen/src/Eigenvalues/SelfAdjointEigenSolver_LAPACKE.h
+        classes/Eigen/src/Eigenvalues/Tridiagonalization.h
+        classes/Eigen/src/Geometry/arch/Geometry_SSE.h
+        classes/Eigen/src/Geometry/AlignedBox.h
+        classes/Eigen/src/Geometry/AngleAxis.h
+        classes/Eigen/src/Geometry/EulerAngles.h
+        classes/Eigen/src/Geometry/Homogeneous.h
+        classes/Eigen/src/Geometry/Hyperplane.h
+        classes/Eigen/src/Geometry/OrthoMethods.h
+        classes/Eigen/src/Geometry/ParametrizedLine.h
+        classes/Eigen/src/Geometry/Quaternion.h
+        classes/Eigen/src/Geometry/Rotation2D.h
+        classes/Eigen/src/Geometry/RotationBase.h
+        classes/Eigen/src/Geometry/Scaling.h
+        classes/Eigen/src/Geometry/Transform.h
+        classes/Eigen/src/Geometry/Translation.h
+        classes/Eigen/src/Geometry/Umeyama.h
+        classes/Eigen/src/Householder/BlockHouseholder.h
+        classes/Eigen/src/Householder/Householder.h
+        classes/Eigen/src/Householder/HouseholderSequence.h
+        classes/Eigen/src/IterativeLinearSolvers/BasicPreconditioners.h
+        classes/Eigen/src/IterativeLinearSolvers/BiCGSTAB.h
+        classes/Eigen/src/IterativeLinearSolvers/ConjugateGradient.h
+        classes/Eigen/src/IterativeLinearSolvers/IncompleteCholesky.h
+        classes/Eigen/src/IterativeLinearSolvers/IncompleteLUT.h
+        classes/Eigen/src/IterativeLinearSolvers/IterativeSolverBase.h
+        classes/Eigen/src/IterativeLinearSolvers/LeastSquareConjugateGradient.h
+        classes/Eigen/src/IterativeLinearSolvers/SolveWithGuess.h
+        classes/Eigen/src/Jacobi/Jacobi.h
+        classes/Eigen/src/LU/arch/Inverse_SSE.h
+        classes/Eigen/src/LU/Determinant.h
+        classes/Eigen/src/LU/FullPivLU.h
+        classes/Eigen/src/LU/InverseImpl.h
+        classes/Eigen/src/LU/PartialPivLU.h
+        classes/Eigen/src/LU/PartialPivLU_LAPACKE.h
+        classes/Eigen/src/MetisSupport/MetisSupport.h
+        classes/Eigen/src/misc/blas.h
+        classes/Eigen/src/misc/Image.h
+        classes/Eigen/src/misc/Kernel.h
+        classes/Eigen/src/misc/lapack.h
+        classes/Eigen/src/misc/lapacke.h
+        classes/Eigen/src/misc/lapacke_mangling.h
+        classes/Eigen/src/misc/RealSvd2x2.h
+        classes/Eigen/src/OrderingMethods/Amd.h
+        classes/Eigen/src/OrderingMethods/Eigen_Colamd.h
+        classes/Eigen/src/OrderingMethods/Ordering.h
+        classes/Eigen/src/PardisoSupport/PardisoSupport.h
+        classes/Eigen/src/PaStiXSupport/PaStiXSupport.h
+        classes/Eigen/src/plugins/ArrayCwiseBinaryOps.h
+        classes/Eigen/src/plugins/ArrayCwiseUnaryOps.h
+        classes/Eigen/src/plugins/BlockMethods.h
+        classes/Eigen/src/plugins/CommonCwiseBinaryOps.h
+        classes/Eigen/src/plugins/CommonCwiseUnaryOps.h
+        classes/Eigen/src/plugins/MatrixCwiseBinaryOps.h
+        classes/Eigen/src/plugins/MatrixCwiseUnaryOps.h
+        classes/Eigen/src/QR/ColPivHouseholderQR.h
+        classes/Eigen/src/QR/ColPivHouseholderQR_LAPACKE.h
+        classes/Eigen/src/QR/CompleteOrthogonalDecomposition.h
+        classes/Eigen/src/QR/FullPivHouseholderQR.h
+        classes/Eigen/src/QR/HouseholderQR.h
+        classes/Eigen/src/QR/HouseholderQR_LAPACKE.h
+        classes/Eigen/src/SparseCholesky/SimplicialCholesky.h
+        classes/Eigen/src/SparseCholesky/SimplicialCholesky_impl.h
+        classes/Eigen/src/SparseCore/AmbiVector.h
+        classes/Eigen/src/SparseCore/CompressedStorage.h
+        classes/Eigen/src/SparseCore/ConservativeSparseSparseProduct.h
+        classes/Eigen/src/SparseCore/MappedSparseMatrix.h
+        classes/Eigen/src/SparseCore/SparseAssign.h
+        classes/Eigen/src/SparseCore/SparseBlock.h
+        classes/Eigen/src/SparseCore/SparseColEtree.h
+        classes/Eigen/src/SparseCore/SparseCompressedBase.h
+        classes/Eigen/src/SparseCore/SparseCwiseBinaryOp.h
+        classes/Eigen/src/SparseCore/SparseCwiseUnaryOp.h
+        classes/Eigen/src/SparseCore/SparseDenseProduct.h
+        classes/Eigen/src/SparseCore/SparseDiagonalProduct.h
+        classes/Eigen/src/SparseCore/SparseDot.h
+        classes/Eigen/src/SparseCore/SparseFuzzy.h
+        classes/Eigen/src/SparseCore/SparseMap.h
+        classes/Eigen/src/SparseCore/SparseMatrix.h
+        classes/Eigen/src/SparseCore/SparseMatrixBase.h
+        classes/Eigen/src/SparseCore/SparsePermutation.h
+        classes/Eigen/src/SparseCore/SparseProduct.h
+        classes/Eigen/src/SparseCore/SparseRedux.h
+        classes/Eigen/src/SparseCore/SparseRef.h
+        classes/Eigen/src/SparseCore/SparseSelfAdjointView.h
+        classes/Eigen/src/SparseCore/SparseSolverBase.h
+        classes/Eigen/src/SparseCore/SparseSparseProductWithPruning.h
+        classes/Eigen/src/SparseCore/SparseTranspose.h
+        classes/Eigen/src/SparseCore/SparseTriangularView.h
+        classes/Eigen/src/SparseCore/SparseUtil.h
+        classes/Eigen/src/SparseCore/SparseVector.h
+        classes/Eigen/src/SparseCore/SparseView.h
+        classes/Eigen/src/SparseCore/TriangularSolver.h
+        classes/Eigen/src/SparseLU/SparseLU.h
+        classes/Eigen/src/SparseLU/SparseLU_column_bmod.h
+        classes/Eigen/src/SparseLU/SparseLU_column_dfs.h
+        classes/Eigen/src/SparseLU/SparseLU_copy_to_ucol.h
+        classes/Eigen/src/SparseLU/SparseLU_gemm_kernel.h
+        classes/Eigen/src/SparseLU/SparseLU_heap_relax_snode.h
+        classes/Eigen/src/SparseLU/SparseLU_kernel_bmod.h
+        classes/Eigen/src/SparseLU/SparseLU_Memory.h
+        classes/Eigen/src/SparseLU/SparseLU_panel_bmod.h
+        classes/Eigen/src/SparseLU/SparseLU_panel_dfs.h
+        classes/Eigen/src/SparseLU/SparseLU_pivotL.h
+        classes/Eigen/src/SparseLU/SparseLU_pruneL.h
+        classes/Eigen/src/SparseLU/SparseLU_relax_snode.h
+        classes/Eigen/src/SparseLU/SparseLU_Structs.h
+        classes/Eigen/src/SparseLU/SparseLU_SupernodalMatrix.h
+        classes/Eigen/src/SparseLU/SparseLU_Utils.h
+        classes/Eigen/src/SparseLU/SparseLUImpl.h
+        classes/Eigen/src/SparseQR/SparseQR.h
+        classes/Eigen/src/SPQRSupport/SuiteSparseQRSupport.h
+        classes/Eigen/src/StlSupport/details.h
+        classes/Eigen/src/StlSupport/StdDeque.h
+        classes/Eigen/src/StlSupport/StdList.h
+        classes/Eigen/src/StlSupport/StdVector.h
+        classes/Eigen/src/SuperLUSupport/SuperLUSupport.h
+        classes/Eigen/src/SVD/BDCSVD.h
+        classes/Eigen/src/SVD/JacobiSVD.h
+        classes/Eigen/src/SVD/JacobiSVD_LAPACKE.h
+        classes/Eigen/src/SVD/SVDBase.h
+        classes/Eigen/src/SVD/UpperBidiagonalization.h
+        classes/Eigen/src/UmfPackSupport/UmfPackSupport.h
+        classes/Eigen/unsupported/CXX11/src/Tensor/Tensor.h
+        classes/Eigen/unsupported/CXX11/src/Tensor/TensorArgMax.h
+        classes/Eigen/unsupported/CXX11/src/Tensor/TensorAssign.h
+        classes/Eigen/unsupported/CXX11/src/Tensor/TensorBase.h
+        classes/Eigen/unsupported/CXX11/src/Tensor/TensorBroadcasting.h
+        classes/Eigen/unsupported/CXX11/src/Tensor/TensorChipping.h
+        classes/Eigen/unsupported/CXX11/src/Tensor/TensorConcatenation.h
+        classes/Eigen/unsupported/CXX11/src/Tensor/TensorContraction.h
+        classes/Eigen/unsupported/CXX11/src/Tensor/TensorContractionBlocking.h
+        classes/Eigen/unsupported/CXX11/src/Tensor/TensorContractionCuda.h
+        classes/Eigen/unsupported/CXX11/src/Tensor/TensorContractionMapper.h
+        classes/Eigen/unsupported/CXX11/src/Tensor/TensorContractionThreadPool.h
+        classes/Eigen/unsupported/CXX11/src/Tensor/TensorConversion.h
+        classes/Eigen/unsupported/CXX11/src/Tensor/TensorConvolution.h
+        classes/Eigen/unsupported/CXX11/src/Tensor/TensorCostModel.h
+        classes/Eigen/unsupported/CXX11/src/Tensor/TensorCustomOp.h
+        classes/Eigen/unsupported/CXX11/src/Tensor/TensorDevice.h
+        classes/Eigen/unsupported/CXX11/src/Tensor/TensorDeviceCuda.h
+        classes/Eigen/unsupported/CXX11/src/Tensor/TensorDeviceDefault.h
+        classes/Eigen/unsupported/CXX11/src/Tensor/TensorDeviceSycl.h
+        classes/Eigen/unsupported/CXX11/src/Tensor/TensorDeviceThreadPool.h
+        classes/Eigen/unsupported/CXX11/src/Tensor/TensorDimensionList.h
+        classes/Eigen/unsupported/CXX11/src/Tensor/TensorDimensions.h
+        classes/Eigen/unsupported/CXX11/src/Tensor/TensorEvalTo.h
+        classes/Eigen/unsupported/CXX11/src/Tensor/TensorEvaluator.h
+        classes/Eigen/unsupported/CXX11/src/Tensor/TensorExecutor.h
+        classes/Eigen/unsupported/CXX11/src/Tensor/TensorExpr.h
+        classes/Eigen/unsupported/CXX11/src/Tensor/TensorFFT.h
+        classes/Eigen/unsupported/CXX11/src/Tensor/TensorFixedSize.h
+        classes/Eigen/unsupported/CXX11/src/Tensor/TensorForcedEval.h
+        classes/Eigen/unsupported/CXX11/src/Tensor/TensorForwardDeclarations.h
+        classes/Eigen/unsupported/CXX11/src/Tensor/TensorFunctors.h
+        classes/Eigen/unsupported/CXX11/src/Tensor/TensorGenerator.h
+        classes/Eigen/unsupported/CXX11/src/Tensor/TensorGlobalFunctions.h
+        classes/Eigen/unsupported/CXX11/src/Tensor/TensorImagePatch.h
+        classes/Eigen/unsupported/CXX11/src/Tensor/TensorIndexList.h
+        classes/Eigen/unsupported/CXX11/src/Tensor/TensorInflation.h
+        classes/Eigen/unsupported/CXX11/src/Tensor/TensorInitializer.h
+        classes/Eigen/unsupported/CXX11/src/Tensor/TensorIntDiv.h
+        classes/Eigen/unsupported/CXX11/src/Tensor/TensorIO.h
+        classes/Eigen/unsupported/CXX11/src/Tensor/TensorLayoutSwap.h
+        classes/Eigen/unsupported/CXX11/src/Tensor/TensorMacros.h
+        classes/Eigen/unsupported/CXX11/src/Tensor/TensorMap.h
+        classes/Eigen/unsupported/CXX11/src/Tensor/TensorMeta.h
+        classes/Eigen/unsupported/CXX11/src/Tensor/TensorMorphing.h
+        classes/Eigen/unsupported/CXX11/src/Tensor/TensorPadding.h
+        classes/Eigen/unsupported/CXX11/src/Tensor/TensorPatch.h
+        classes/Eigen/unsupported/CXX11/src/Tensor/TensorRandom.h
+        classes/Eigen/unsupported/CXX11/src/Tensor/TensorReduction.h
+        classes/Eigen/unsupported/CXX11/src/Tensor/TensorReductionCuda.h
+        classes/Eigen/unsupported/CXX11/src/Tensor/TensorReductionSycl.h
+        classes/Eigen/unsupported/CXX11/src/Tensor/TensorRef.h
+        classes/Eigen/unsupported/CXX11/src/Tensor/TensorReverse.h
+        classes/Eigen/unsupported/CXX11/src/Tensor/TensorScan.h
+        classes/Eigen/unsupported/CXX11/src/Tensor/TensorShuffling.h
+        classes/Eigen/unsupported/CXX11/src/Tensor/TensorStorage.h
+        classes/Eigen/unsupported/CXX11/src/Tensor/TensorStriding.h
+        classes/Eigen/unsupported/CXX11/src/Tensor/TensorSycl.h
+        classes/Eigen/unsupported/CXX11/src/Tensor/TensorSyclConvertToDeviceExpression.h
+        classes/Eigen/unsupported/CXX11/src/Tensor/TensorSyclExprConstructor.h
+        classes/Eigen/unsupported/CXX11/src/Tensor/TensorSyclExtractAccessor.h
+        classes/Eigen/unsupported/CXX11/src/Tensor/TensorSyclExtractFunctors.h
+        classes/Eigen/unsupported/CXX11/src/Tensor/TensorSyclLeafCount.h
+        classes/Eigen/unsupported/CXX11/src/Tensor/TensorSyclPlaceHolderExpr.h
+        classes/Eigen/unsupported/CXX11/src/Tensor/TensorSyclRun.h
+        classes/Eigen/unsupported/CXX11/src/Tensor/TensorSyclTuple.h
+        classes/Eigen/unsupported/CXX11/src/Tensor/TensorTraits.h
+        classes/Eigen/unsupported/CXX11/src/Tensor/TensorUInt128.h
+        classes/Eigen/unsupported/CXX11/src/Tensor/TensorVolumePatch.h
+        classes/Eigen/unsupported/CXX11/src/TensorSymmetry/util/TemplateGroupTheory.h
+        classes/Eigen/unsupported/CXX11/src/TensorSymmetry/DynamicSymmetry.h
+        classes/Eigen/unsupported/CXX11/src/TensorSymmetry/StaticSymmetry.h
+        classes/Eigen/unsupported/CXX11/src/TensorSymmetry/Symmetry.h
+        classes/Eigen/unsupported/CXX11/src/ThreadPool/EventCount.h
+        classes/Eigen/unsupported/CXX11/src/ThreadPool/NonBlockingThreadPool.h
+        classes/Eigen/unsupported/CXX11/src/ThreadPool/RunQueue.h
+        classes/Eigen/unsupported/CXX11/src/ThreadPool/SimpleThreadPool.h
+        classes/Eigen/unsupported/CXX11/src/ThreadPool/ThreadEnvironment.h
+        classes/Eigen/unsupported/CXX11/src/ThreadPool/ThreadLocal.h
+        classes/Eigen/unsupported/CXX11/src/ThreadPool/ThreadPoolInterface.h
+        classes/Eigen/unsupported/CXX11/src/ThreadPool/ThreadYield.h
+        classes/Eigen/unsupported/CXX11/src/util/CXX11Meta.h
+        classes/Eigen/unsupported/CXX11/src/util/CXX11Workarounds.h
+        classes/Eigen/unsupported/CXX11/src/util/EmulateArray.h
+        classes/Eigen/unsupported/CXX11/src/util/EmulateCXX11Meta.h
+        classes/Eigen/unsupported/CXX11/src/util/MaxSizeVector.h
+        classes/Eigen/unsupported/src/AutoDiff/AutoDiffJacobian.h
+        classes/Eigen/unsupported/src/AutoDiff/AutoDiffScalar.h
+        classes/Eigen/unsupported/src/AutoDiff/AutoDiffVector.h
+        classes/Eigen/unsupported/src/BVH/BVAlgorithms.h
+        classes/Eigen/unsupported/src/BVH/KdBVH.h
+        classes/Eigen/unsupported/src/Eigenvalues/ArpackSelfAdjointEigenSolver.h
+        classes/Eigen/unsupported/src/EulerAngles/EulerAngles.h
+        classes/Eigen/unsupported/src/EulerAngles/EulerSystem.h
+        classes/Eigen/unsupported/src/FFT/ei_fftw_impl.h
+        classes/Eigen/unsupported/src/FFT/ei_kissfft_impl.h
+        classes/Eigen/unsupported/src/IterativeSolvers/ConstrainedConjGrad.h
+        classes/Eigen/unsupported/src/IterativeSolvers/DGMRES.h
+        classes/Eigen/unsupported/src/IterativeSolvers/GMRES.h
+        classes/Eigen/unsupported/src/IterativeSolvers/IncompleteLU.h
+        classes/Eigen/unsupported/src/IterativeSolvers/IterationController.h
+        classes/Eigen/unsupported/src/IterativeSolvers/MINRES.h
+        classes/Eigen/unsupported/src/IterativeSolvers/Scaling.h
+        classes/Eigen/unsupported/src/KroneckerProduct/KroneckerTensorProduct.h
+        classes/Eigen/unsupported/src/LevenbergMarquardt/LevenbergMarquardt.h
+        classes/Eigen/unsupported/src/LevenbergMarquardt/LMcovar.h
+        classes/Eigen/unsupported/src/LevenbergMarquardt/LMonestep.h
+        classes/Eigen/unsupported/src/LevenbergMarquardt/LMpar.h
+        classes/Eigen/unsupported/src/LevenbergMarquardt/LMqrsolv.h
+        classes/Eigen/unsupported/src/MatrixFunctions/MatrixExponential.h
+        classes/Eigen/unsupported/src/MatrixFunctions/MatrixFunction.h
+        classes/Eigen/unsupported/src/MatrixFunctions/MatrixLogarithm.h
+        classes/Eigen/unsupported/src/MatrixFunctions/MatrixPower.h
+        classes/Eigen/unsupported/src/MatrixFunctions/MatrixSquareRoot.h
+        classes/Eigen/unsupported/src/MatrixFunctions/StemFunction.h
+        classes/Eigen/unsupported/src/MoreVectorization/MathFunctions.h
+        classes/Eigen/unsupported/src/NonLinearOptimization/chkder.h
+        classes/Eigen/unsupported/src/NonLinearOptimization/covar.h
+        classes/Eigen/unsupported/src/NonLinearOptimization/dogleg.h
+        classes/Eigen/unsupported/src/NonLinearOptimization/fdjac1.h
+        classes/Eigen/unsupported/src/NonLinearOptimization/HybridNonLinearSolver.h
+        classes/Eigen/unsupported/src/NonLinearOptimization/LevenbergMarquardt.h
+        classes/Eigen/unsupported/src/NonLinearOptimization/lmpar.h
+        classes/Eigen/unsupported/src/NonLinearOptimization/qrsolv.h
+        classes/Eigen/unsupported/src/NonLinearOptimization/r1mpyq.h
+        classes/Eigen/unsupported/src/NonLinearOptimization/r1updt.h
+        classes/Eigen/unsupported/src/NonLinearOptimization/rwupdt.h
+        classes/Eigen/unsupported/src/NumericalDiff/NumericalDiff.h
+        classes/Eigen/unsupported/src/Polynomials/Companion.h
+        classes/Eigen/unsupported/src/Polynomials/PolynomialSolver.h
+        classes/Eigen/unsupported/src/Polynomials/PolynomialUtils.h
+        classes/Eigen/unsupported/src/Skyline/SkylineInplaceLU.h
+        classes/Eigen/unsupported/src/Skyline/SkylineMatrix.h
+        classes/Eigen/unsupported/src/Skyline/SkylineMatrixBase.h
+        classes/Eigen/unsupported/src/Skyline/SkylineProduct.h
+        classes/Eigen/unsupported/src/Skyline/SkylineStorage.h
+        classes/Eigen/unsupported/src/Skyline/SkylineUtil.h
+        classes/Eigen/unsupported/src/SparseExtra/BlockOfDynamicSparseMatrix.h
+        classes/Eigen/unsupported/src/SparseExtra/BlockSparseMatrix.h
+        classes/Eigen/unsupported/src/SparseExtra/DynamicSparseMatrix.h
+        classes/Eigen/unsupported/src/SparseExtra/MarketIO.h
+        classes/Eigen/unsupported/src/SparseExtra/MatrixMarketIterator.h
+        classes/Eigen/unsupported/src/SparseExtra/RandomSetter.h
+        classes/Eigen/unsupported/src/SpecialFunctions/arch/CUDA/CudaSpecialFunctions.h
+        classes/Eigen/unsupported/src/SpecialFunctions/SpecialFunctionsArrayAPI.h
+        classes/Eigen/unsupported/src/SpecialFunctions/SpecialFunctionsFunctors.h
+        classes/Eigen/unsupported/src/SpecialFunctions/SpecialFunctionsHalf.h
+        classes/Eigen/unsupported/src/SpecialFunctions/SpecialFunctionsImpl.h
+        classes/Eigen/unsupported/src/SpecialFunctions/SpecialFunctionsPacketMath.h
+        classes/Eigen/unsupported/src/Splines/Spline.h
+        classes/Eigen/unsupported/src/Splines/SplineFitting.h
+        classes/Eigen/unsupported/src/Splines/SplineFwd.h
+        classes/ConfigFile.cpp
+        classes/ConfigFile.hpp
+        classes/Cutter3D.cpp
+        classes/Cutter3D.hpp
+        classes/DefineNumbers.hpp
+        classes/Domain3D.cpp
+        classes/Domain3D.hpp
+        classes/GenericDomain.cpp
+        classes/GenericDomain.hpp
+        classes/GenericMesh.cpp
+        classes/GenericMesh.hpp
+        classes/Intersector1D1D.cpp
+        classes/Intersector1D1D.hpp
+        classes/Intersector2D1D.cpp
+        classes/Intersector2D1D.hpp
+        classes/Intersector2D2D.cpp
+        classes/Intersector2D2D.hpp
+        classes/MacroDefinitions.hpp
+        classes/MeshImport_Tetgen.cpp
+        classes/MeshImport_Tetgen.hpp
+        classes/Output.cpp
+        classes/Output.hpp
+        classes/predicates.cxx
+        classes/RefinerTetra.cpp
+        classes/RefinerTetra.hpp
+        classes/tetgen.cxx
+        classes/tetgen.h
+        Project/main.cpp classes/Test.h classes/Test.cpp)
